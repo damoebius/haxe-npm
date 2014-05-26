@@ -39,8 +39,8 @@ zlib.gunzip(input,function(error,result){
 	}
 });
 console.log(alias_cmd);
-exec(alias_cmd,function(error, stdout, stderr){
+/*exec(alias_cmd,function(error, stdout, stderr){
 	if (error !== null) {
 	  console.error(error);
 	}
-});
+});*/
