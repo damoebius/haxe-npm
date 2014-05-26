@@ -19,7 +19,7 @@ Leave off the `-g` if you don't wish to install globally.
 Execute a script:
 
 ```shell
-haxe2 --help
+haxe --help
 ```
 
 Compile a script:
@@ -40,7 +40,7 @@ Put this class into a file named Test.hx and create the file compile.hxml in the
 To compile, run the command : 
 
 ```shell
-haxe2 compile.hxml
+haxe compile.hxml
 ```
 
 For documentation, usage, and examples, see: http://haxe.org/
