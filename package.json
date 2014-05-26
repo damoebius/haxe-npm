@@ -1,0 +1,35 @@
+{
+  "name": "haxe",
+  "description": "The Cross-Platform Toolkit",
+  "keywords": [
+    "javascript",
+    "language",
+    "haxe",
+    "compiler"
+  ],
+  "author": "David Mouton",
+  "version": "0.0.2",
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "directories": {
+    "lib": "./lib/std"
+  },
+  "main": "",
+  "bin": {
+    "haxe": "./bin/haxe"
+  },
+  "preferGlobal": true,
+  "scripts": {
+    "install": "node ./bin/install"
+  },
+  "homepage": "http://haxe.org",
+  "bugs": "https://github.com/damoebius/haxe-npm/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/damoebius/haxe-npm.git"
+  },
+  "dependencies": {
+  }
+}
