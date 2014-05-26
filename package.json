@@ -8,7 +8,7 @@
     "compiler"
   ],
   "author": "David Mouton",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "license": "MIT",
   "engines": {
     "node": ">=0.8.0"
@@ -18,7 +18,7 @@
   },
   "main": "",
   "bin": {
-    "haxe": "./bin/haxe"
+    "haxe2": "./bin/haxe-cli"
   },
   "preferGlobal": true,
   "scripts": {
@@ -31,5 +31,6 @@
     "url": "git://github.com/damoebius/haxe-npm.git"
   },
   "dependencies": {
+	"fstream":""
   }
 }
