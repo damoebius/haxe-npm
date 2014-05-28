@@ -1,3 +1,21 @@
 [submodule "lib/createjs"]
 	path = lib/createjs
 	url = https://github.com/nickalie/CreateJS-Haxe.git
+[submodule "lib/threejs"]
+	path = lib/threejs
+	url = https://github.com/labe-me/haxe-three.js.git
+[submodule "lib/phantomjs"]
+	path = lib/phantomjs
+	url = https://github.com/jdonaldson/phantomjs-hx.git
+[submodule "lib/phaser"]
+	path = lib/phaser
+	url = https://github.com/Blank101/haxe-phaser.git
+[submodule "lib/bean"]
+	path = lib/bean
+	url = https://github.com/jasononeil/beanhx.git
+[submodule "lib/extjs"]
+	path = lib/extjs
+	url = https://github.com/jasononeil/Ext-JS-4.0-externs-for-Haxe.git
+[submodule "lib/pixijs"]
+	path = lib/pixijs
+	url = https://github.com/regniraj/pixi.js-haxe-extern.git
