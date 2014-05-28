@@ -1,0 +1,3 @@
+[submodule "lib/createjs"]
+	path = lib/createjs
+	url = https://github.com/nickalie/CreateJS-Haxe.git
