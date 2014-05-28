@@ -10,6 +10,7 @@ if(platform == 'win32' || platform == 'win64'){
 	haxeExec = 'haxe.exe'
 }
 var cmd = path.dirname(fs.realpathSync(__filename)) + '/' + haxeExec;
+
 process.argv.forEach(function (val, index, array) {
 	if(index >1){
 	cmd += ' ' + val

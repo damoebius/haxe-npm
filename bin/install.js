@@ -8,22 +8,24 @@ console.log("Installing Binaries for  " + os.platform() );
 var inputFile='';
 var outputFile='';
 var alias_cmd='';
+var stdPath=__dirname+'/../std';
+
 switch(platform) {
 	case 'linux':
 		inputFile = 'haxe-linux32.gz';
 		outputFile='haxe';
-		alias_cmd = 'grep "HAXE_LIBRARY_PATH" /etc/environment || echo "export HAXE_LIBRARY_PATH='+__dirname+'/../std:." | sudo tee -a /etc/environment';
+		alias_cmd = 'grep "HAXE_STD_PATH" /etc/environment || echo "export HAXE_STD_PATH='+stdPath+':." | sudo tee -a /etc/environment';
 		break;
 	case 'darwin':
 		inputFile = 'haxe-osx.gz';
 		outputFile='haxe';
-		alias_cmd = 'grep "HAXE_LIBRARY_PATH" /etc/environment || echo "export HAXE_LIBRARY_PATH='+__dirname+'/../std:." | sudo tee -a /etc/environment';
+		alias_cmd = 'grep "HAXE_STD_PATH" /etc/environment || echo "export HAXE_STD_PATH='+stdPath+':." | sudo tee -a /etc/environment';
 		break;	
 	case 'win32':
 	case 'win64':
 		inputFile = 'haxe-win.gz';
 		outputFile='haxe.exe';
-		alias_cmd = 'setx HAXE_STD_PATH "'+__dirname+'/../std"';
+		alias_cmd = 'setx HAXE_STD_PATH "'+stdPath+'"';
 		break;
 	default:
 		console.error("ERROR : Unknown plateform");

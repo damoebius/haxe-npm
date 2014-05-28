@@ -8,7 +8,7 @@
     "compiler"
   ],
   "author": "David Mouton",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "license": "MIT",
   "engines": {
     "node": ">=0.8.0"
