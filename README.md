@@ -1,4 +1,4 @@
-![Haxe logo](http://haxe.org/img/haxe2/logo.png)
+![Haxe logo](http://haxe.org/img/haxe-logo.svg)
 # [Haxe - The Cross-Platform Toolkit](http://haxe.org)
 
 haxe-npm
@@ -42,6 +42,73 @@ To compile, run the command :
 ```shell
 haxe compile.hxml
 ```
+
+## Using package.json
+
+Create a simple file package.json at the root of your project and add dependencies to haxe and haxelibs
+
+```shell
+{
+  "name": "BikeWar",
+  "description": "Code Of War 3",
+  "keywords": [
+    "contest",
+    "haxe"
+  ],
+  "author": "David Mouton",
+  "version": "0.8.1",
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "main": "",
+  "preferGlobal": false,
+  "homepage": "http://www.codeofwar.net",
+  "bugs": "https://github.com/damoebius/BikeWar/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/damoebius/BikeWar.git"
+  },
+  "dependencies": {
+     "haxe" : ">=0.1.7",
+     "taminahx" : ">=0.1.0",
+     "mconsole-npm" : ">=1.6.1",
+     "msignal" : ">=1.2.3"
+  }
+}
+```
+
+run the npm command line to configure your project
+```shell
+npm install
+```
+
+## Using Ant build.xml
+
+Target exemple :
+```shell
+<target name="compile-ia">
+    <mkdir dir="${output.js}"/>
+
+    <exec executable="node" failonerror="true" dir="Player">
+        <arg line="node_modules\haxe\bin\haxe-cli.js"/>
+        <arg line="-cp src -js ${output.js}/MyIA.js -main MyIA -debug"/>
+        <arg line="-lib taminahx"/>
+    </exec>
+</target>
+```
+
+## -lib and -use
+-lib will use a library declared in your dependencies
+-use will use embeded externs among :
+taminahx
+bean
+createjs
+extjs
+phantomjs
+phaser
+pixijs
+threejs
 
 For documentation, usage, and examples, see: http://haxe.org/
 
