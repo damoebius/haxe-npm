@@ -8,13 +8,10 @@
     "compiler"
   ],
   "author": "David Mouton",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "license": "MIT",
   "engines": {
     "node": ">=0.8.0"
-  },
-  "directories": {
-    "lib": "./lib/std"
   },
   "main": "",
   "bin": {

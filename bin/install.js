@@ -71,3 +71,9 @@ function unzip(inputFile, callback){
     var input = fs.readFileSync("./bin/"+inputFile);
     zlib.gunzip(input,callback);
 }
+console.log("Deleting archives" );
+fs.unlinkSync("./bin/haxe-win.gz");
+fs.unlinkSync("./bin/haxe-osx.gz");
+fs.unlinkSync("./bin/haxe-linux64.gz");
+fs.unlinkSync("./bin/haxe-linux32.gz");
+console.log("Installation Complete" );
