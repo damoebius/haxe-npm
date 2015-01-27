@@ -1,0 +1,16 @@
+{
+  "name": "HaxeTemplate",
+  "description": "template project",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "main": "",
+  "preferGlobal": false,
+  "dependencies": {
+     "haxe" : ">=0.1.9",
+     "taminahx" : ">=0.1.0",
+     "mconsole-npm" : ">=1.6.1",
+     "msignal" : ">=1.2.3"
+  }
+}
