@@ -97,18 +97,27 @@ Target exemple :
     </exec>
 </target>
 ```
+## create template project
+You can use 'create' parameters to create an empty project based on the default template.
+```shell
+haxe create MyProject
+```
 
 ## -lib and -use
 -lib will use a library declared in your dependencies
 -use will use embeded externs among :
-taminahx
-bean
-createjs
-extjs
-phantomjs
-phaser
-pixijs
-threejs
+
+| Embeded JS Externs   | 
+| ------------- | 
+| bean  | 
+| createjs  |
+| extjs  |
+| phantomjs  |
+| phaser  |
+| pixijs  |
+| threejs  |
+| nodejs  |
+
 
 For documentation, usage, and examples, see: http://haxe.org/
 
