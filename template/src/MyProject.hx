@@ -1,4 +1,4 @@
-package
+package;
 
 class MyProject {
     public function new():Void {

@@ -13,6 +13,7 @@ clean();
 ncp('package.json',buildDir+'/package.json')
 ncp('bin',buildDir+'/bin');
 ncp('std',buildDir+'/std');
+ncp('template',buildDir+'/template');
 fs.mkdirSync(libDir);
 ncp('lib/bean/src',libDir+'/bean');
 ncp('lib/createjs',libDir+'/createjs');

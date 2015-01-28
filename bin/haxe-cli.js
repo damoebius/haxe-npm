@@ -16,7 +16,7 @@ if(platform == 'win32' || platform == 'win64'){
 var haxeDir = path.dirname(fs.realpathSync(__filename));
 cmd += haxeDir + '/' + haxeExec + ' ';
 
-var createProject = '';
+var createProjectName = '';
 process.argv.forEach(function (val, index, array) {
     if (index > 1) {
         if (val == '-lib') {
@@ -25,24 +25,44 @@ process.argv.forEach(function (val, index, array) {
             cmd += '-cp ' + haxeDir + '/../lib/';
         }
         else if(val == 'create'){
-            createProject = process.argv[index + 1];
+            createProjectName = process.argv[index + 1];
         }
         else {
             cmd += val + ' ';
         }
     }
 });
-if(createProject != ''){
-   console.log('create new project : ' + createProject);
-    if(fs.existsSync( createProject )){
+if(createProjectName != ''){
+   console.log('create new project : ' + createProjectName);
+    if(fs.existsSync( createProjectName )){
         console.error( 'le dossier existe déja');
     } else {
-        ncp(templatePath,createProject, function(err){
+        ncp(templatePath,createProjectName, function(err){
             if (err) {
                 console.error(err);
             } else {
-                fs.renameSync(createProject + '/src/com/myproject', createProject + '/src/com/' + createProject.toLowerCase());
-                fs.renameSync(createProject + '/src/MyProject.hx', createProject + '/src/' + createProject + '.hx');
+                fs.renameSync(createProjectName + '/src/com/myproject', createProjectName + '/src/com/' + createProjectName.toLowerCase());
+                fs.renameSync(createProjectName + '/src/MyProject.hx', createProjectName + '/src/' + createProjectName + '.hx');
+                fs.readFile(createProjectName + '/src/' + createProjectName + '.hx', 'utf8', function (err,data) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    var result = data.replace(/MyProject/g, createProjectName);
+
+                    fs.writeFile(createProjectName + '/src/' + createProjectName + '.hx', result, 'utf8', function (err) {
+                        if (err) console.log(err);
+                    });
+                });
+                fs.readFile(createProjectName + '/build.xml', 'utf8', function (err,data) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    var result = data.replace(/MyProject/g, createProjectName);
+
+                    fs.writeFile(createProjectName + '/build.xml', result, 'utf8', function (err) {
+                        if (err) console.log(err);
+                    });
+                });
             }
         });
 
