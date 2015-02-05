@@ -11,6 +11,7 @@ var libDir = buildDir+'/lib';
 
 clean();
 ncp('package.json',buildDir+'/package.json')
+ncp('README.md',buildDir+'/README.md')
 ncp('bin',buildDir+'/bin');
 ncp('std',buildDir+'/std');
 ncp('template',buildDir+'/template');
