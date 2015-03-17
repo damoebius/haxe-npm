@@ -47,6 +47,7 @@ class BytesBuffer {
 		b = untyped StringBuf.__make();
 		#elseif flash9
 		b = new flash.utils.ByteArray();
+		b.endian = flash.utils.Endian.LITTLE_ENDIAN;
 		#elseif php
 		b = "";
 		#elseif cpp
@@ -101,11 +102,58 @@ class BytesBuffer {
 		b.Write(src.getData(), 0, src.length);
 		#elseif java
 		b.write(src.getData(), 0, src.length);
+		#elseif js
+		var b1 = b;
+		var b2 = @:privateAccess src.b;
+		for( i in 0...src.length )
+			b.push(b2[i]);
 		#else
 		var b1 = b;
 		var b2 = src.getData();
 		for( i in 0...src.length )
 			b.push(b2[i]);
+		#end
+	}
+
+	public inline function addString( v : String ) {
+		#if neko
+		untyped StringBuf.__add(b, v.__s);
+		#elseif flash9
+		b.writeUTFBytes(v);
+		#else
+		add(Bytes.ofString(v));
+		#end
+	}
+
+	public #if flash9 inline #end function addInt32( v : Int ) {
+		#if flash9
+		b.writeUnsignedInt(v);
+		#else
+		addByte(v&0xFF);
+		addByte((v>>8)&0xFF);
+		addByte((v>>16)&0xFF);
+		addByte(v>>>24);
+		#end
+	}
+
+	public #if flash9 inline #end function addInt64( v : haxe.Int64 ) {
+		addInt32(v.low);
+		addInt32(v.high);
+	}
+
+	public inline function addFloat( v : Float ) {
+		#if flash9
+		b.writeFloat(v);
+		#else
+		addInt32(FPHelper.floatToI32(v));
+		#end
+	}
+
+	public inline function addDouble( v : Float ) {
+		#if flash9
+		b.writeDouble(v);
+		#else
+		addInt64(FPHelper.doubleToI64(v));
 		#end
 	}
 
@@ -123,6 +171,11 @@ class BytesBuffer {
 		b.Write(src.getData(), pos, len);
 		#elseif java
 		b.write(src.getData(), pos, len);
+		#elseif js
+		var b1 = b;
+		var b2 = @:privateAccess src.b;
+		for( i in pos...pos+len )
+			b.push(b2[i]);
 		#else
 		var b1 = b;
 		var b2 = src.getData();
@@ -150,6 +203,11 @@ class BytesBuffer {
 		#elseif java
 		var buf = b.toByteArray();
 		var bytes = new Bytes(buf.length, buf);
+		#elseif python
+		var buf = new python.Bytearray(b);
+		var bytes = new Bytes(buf.length, buf);
+		#elseif js
+		var bytes = new Bytes(new js.html.Uint8Array(b).buffer);
 		#else
 		var bytes = new Bytes(b.length,b);
 		#end

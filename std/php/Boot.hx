@@ -554,7 +554,7 @@ function _hx_set_method($o, $field, $func) {
 }
 
 function _hx_shift_right($v, $n) {
-	return ($v >> $n) & (0x7fffffff >> ($n-1));
+	return ($v >= 0) ? ($v >> $n) : ($v >> $n) & (0x7fffffff >> ($n-1));
 }
 
 function _hx_string_call($s, $method, $params) {
@@ -792,7 +792,7 @@ class _hx_type {
 		if($r->hasProperty($n))
 			return $r->getStaticPropertyValue($n);
 		else if($r->hasMethod($n))
-			return array($r, $n);
+			return array($r->name, $n);
 		else
 			return null;
 	}

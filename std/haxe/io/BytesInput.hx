@@ -22,13 +22,13 @@
 package haxe.io;
 
 class BytesInput extends Input {
-	var b : BytesData;
+	var b : #if js js.html.Uint8Array #else BytesData #end;
 	#if !flash9
 	var pos : Int;
 	var len : Int;
 	var totlen : Int;
 	#end
-	
+
 	/** The current position in the stream in bytes. */
 	public var position(get,set) : Int;
 
@@ -50,13 +50,16 @@ class BytesInput extends Input {
 			this.b = ba;
 		this.b.endian = flash.utils.Endian.LITTLE_ENDIAN;
 		#else
-		this.b = b.getData();
+		this.b = #if js @:privateAccess b.b #else b.getData() #end;
 		this.pos = pos;
 		this.len = len;
 		this.totlen = len;
 		#end
+		#if python
+		bigEndian = false;
+		#end
 	}
-	
+
 	inline function get_position() : Int {
 		#if flash9
 		return b.position;
@@ -72,7 +75,7 @@ class BytesInput extends Input {
 		return totlen;
 		#end
 	}
-	
+
 	function set_position( p : Int ) : Int {
 		if( p < 0 ) p = 0;
 		else if( p > length ) p = length;
@@ -83,7 +86,7 @@ class BytesInput extends Input {
 		return pos = p;
 		#end
 	}
-	
+
 	public override function readByte() : Int {
 		#if flash9
 			return try b.readUnsignedByte() catch( e : Dynamic ) throw new Eof();
@@ -141,7 +144,7 @@ class BytesInput extends Input {
 			untyped __php__("$buf->b = substr($buf->b, 0, $pos) . substr($this->b, $this->pos, $len) . substr($buf->b, $pos+$len)");
 			#else
 			var b1 = b;
-			var b2 = buf.getData();
+			var b2 = #if js @:privateAccess buf.b #else buf.getData() #end;
 			for( i in 0...len )
 				b2[pos+i] = b1[this.pos+i];
 			#end
@@ -152,36 +155,44 @@ class BytesInput extends Input {
 	}
 
 	#if flash9
+	@:dox(hide)
 	override function set_bigEndian(e) {
 		bigEndian = e;
 		b.endian = e ? flash.utils.Endian.BIG_ENDIAN : flash.utils.Endian.LITTLE_ENDIAN;
 		return e;
 	}
 
+	@:dox(hide)
 	override function readFloat() {
 		return try b.readFloat() catch( e : Dynamic ) throw new Eof();
 	}
 
+	@:dox(hide)
 	override function readDouble() {
 		return try b.readDouble() catch( e : Dynamic ) throw new Eof();
 	}
 
+	@:dox(hide)
 	override function readInt8() {
 		return try b.readByte() catch( e : Dynamic ) throw new Eof();
 	}
 
+	@:dox(hide)
 	override function readInt16() {
 		return try b.readShort() catch( e : Dynamic ) throw new Eof();
 	}
 
+	@:dox(hide)
 	override function readUInt16() : Int {
 		return try b.readUnsignedShort() catch( e : Dynamic ) throw new Eof();
 	}
 
+	@:dox(hide)
 	override function readInt32() : Int {
 		return try b.readInt() catch( e : Dynamic ) throw new Eof();
 	}
 
+	@:dox(hide)
 	override function readString( len : Int ) {
 		return try b.readUTFBytes(len) catch( e : Dynamic ) throw new Eof();
 	}

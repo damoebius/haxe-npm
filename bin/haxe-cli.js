@@ -35,7 +35,7 @@ process.argv.forEach(function (val, index, array) {
 if(createProjectName != ''){
    console.log('create new project : ' + createProjectName);
     if(fs.existsSync( createProjectName )){
-        console.error( 'le dossier existe dÃ©ja');
+        console.error( 'le dossier existe déja');
     } else {
         ncp(templatePath,createProjectName, function(err){
             if (err) {

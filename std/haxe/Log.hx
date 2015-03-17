@@ -68,7 +68,7 @@ class Log {
 				untyped __call__('_hx_trace', v + extra, infos);
 			}
 			else
-				untyped __call__('_hx_trace', v, infos);		
+				untyped __call__('_hx_trace', v, infos);
 		#elseif cpp
 			if (infos!=null && infos.customParams!=null) {
 				var extra:String = "";
@@ -94,6 +94,17 @@ class Log {
 			#elseif java
 			untyped __java__("java.lang.System.out.println(str)");
 			#end
+		#elseif (python)
+			var str:String = null;
+			if (infos != null) {
+				str = infos.fileName + ":" + Std.string(infos.lineNumber) + ": " + v;
+				if (infos.customParams != null) {
+					str += "," + infos.customParams.join(",");
+				}
+			} else {
+				str = v;
+			}
+			python.Lib.println(str);
 		#end
 	}
 

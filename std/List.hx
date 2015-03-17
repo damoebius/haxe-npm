@@ -43,7 +43,7 @@ class List<T> {
 
 	/**
 		Adds element `item` at the end of `this` List.
-		
+
 		`this.length` increases by 1.
 	**/
 	public function add( item : T ) {
@@ -58,7 +58,7 @@ class List<T> {
 
 	/**
 		Adds element `item` at the beginning of `this` List.
-		
+
 		`this.length` increases by 1.
 	**/
 	public function push( item : T ) {
@@ -75,7 +75,7 @@ class List<T> {
 
 	/**
 		Returns the first element of `this` List, or null if no elements exist.
-		
+
 		This function does not modify `this` List.
 	**/
 	public function first() : Null<T> {
@@ -84,7 +84,7 @@ class List<T> {
 
 	/**
 		Returns the last element of `this` List, or null if no elements exist.
-		
+
 		This function does not modify `this` List.
 	**/
 	public function last() : Null<T> {
@@ -94,7 +94,7 @@ class List<T> {
 
 	/**
 		Returns the first element of `this` List, or null if no elements exist.
-		
+
 		The element is removed from `this` List.
 	**/
 	public function pop() : Null<T> {
@@ -117,7 +117,7 @@ class List<T> {
 
 	/**
 		Empties `this` List.
-		
+
 		This function does not traverse the elements, but simply sets the
 		internal references to null and `this.length` to 0.
 	**/
@@ -129,10 +129,10 @@ class List<T> {
 
 	/**
 		Removes the first occurence of `v` in `this` List.
-		
+
 		If `v` is found by checking standard equality, it is removed from `this`
 		List and the function returns true.
-		
+
 		Otherwise, false is returned.
 	**/
 	public function remove( v : T ) : Bool {
@@ -158,45 +158,13 @@ class List<T> {
 	/**
 		Returns an iterator on the elements of the list.
 	**/
-	public function iterator() : Iterator<T> {
-		#if (java || cs)
-		var h = h;
-		return cast {
-			hasNext : function() {
-				return (h != null);
-			},
-			next : function() {
-				{
-					if( h == null )
-						return null;
-					var x = h[0];
-					h = h[1];
-					return x;
-				}
-			}
-		}
-		#else
-		return cast {
-			h : h,
-			hasNext : function() {
-				return untyped (__this__.h != null);
-			},
-			next : function() {
-				untyped {
-					if( __this__.h == null )
-						return null;
-					var x = __this__.h[0];
-					__this__.h = __this__.h[1];
-					return x;
-				}
-			}
-		}
-		#end
+	public inline function iterator() : ListIterator<T> {
+		return new ListIterator<T>(h);
 	}
 
 	/**
 		Returns a string representation of `this` List.
-		
+
 		The result is enclosed in { } with the individual elements being
 		separated by a comma.
 	**/
@@ -267,4 +235,24 @@ class List<T> {
 		return b;
 	}
 
+}
+
+private class ListIterator<T> {
+	var head:Array<Dynamic>;
+	var val:Dynamic;
+
+	public inline function new(head:Array<Dynamic>) {
+		this.head = head;
+		this.val = null;
+	}
+
+	public inline function hasNext():Bool {
+		return head != null;
+	}
+
+	public inline function next():T {
+		val = head[0];
+		head = head[1];
+		return val;
+	}
 }

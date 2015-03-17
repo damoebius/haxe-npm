@@ -32,7 +32,7 @@ typedef TypeResolver = {
 	a serialization String and creates objects from the contained data.
 
 	This class can be used in two ways:
-	
+
 	- create a new Unserializer() instance with a given serialization
 		String, then call its unserialize() method until all values are
 		extracted
@@ -48,7 +48,7 @@ class Unserializer {
 		default, the haxe Type Api is used.
 
 		A type resolver must provide two methods:
-		
+
 		1. resolveClass(name:String):Class<Dynamic> is called to determine a
 				Class from a class name
 		2. resolveEnum(name:String):Enum<Dynamic> is called to determine an
@@ -168,6 +168,19 @@ class Unserializer {
  			k *= -1;
  		return k;
  	}
+	
+	function readFloat() {
+		var p1 = pos;
+ 		while( true ) {
+ 			var c = get(pos);
+ 			// + - . , 0-9
+ 			if( (c >= 43 && c < 58) || c == "e".code || c == "E".code )
+ 				pos++;
+ 			else
+ 				break;
+ 		}
+ 		return Std.parseFloat(buf.substr(p1,pos-p1));
+	}
 
 	function unserializeObject(o) {
  		while( true ) {
@@ -229,16 +242,7 @@ class Unserializer {
  		case "i".code:
  			return readDigits();
  		case "d".code:
- 			var p1 = pos;
- 			while( true ) {
- 				var c = get(pos);
- 				// + - . , 0-9
- 				if( (c >= 43 && c < 58) || c == "e".code || c == "E".code )
- 					pos++;
- 				else
- 					break;
- 			}
- 			return Std.parseFloat(buf.substr(p1,pos-p1));
+ 			return readFloat();
 		case "y".code:
  			var len = readDigits();
  			if( get(pos++) != ":".code || length - pos < len )
@@ -361,9 +365,19 @@ class Unserializer {
 			pos++;
 			return h;
 		case "v".code:
-			var d = Date.fromString(buf.substr(pos,19));
+			var d;
+			if(	get(pos) >= '0'.code && get(pos) <= '9'.code &&
+				get(pos + 1) >= '0'.code && get(pos + 1) <= '9'.code &&
+				get(pos + 2) >= '0'.code && get(pos + 2) <= '9'.code &&
+				get(pos + 3) >= '0'.code && get(pos + 3) <= '9'.code &&
+				get(pos + 4) == '-'.code
+				) {
+				// Included for backwards compatibility
+				d = Date.fromString(buf.substr(pos,19));
+				pos += 19;
+			} else
+				d = Date.fromTime(readFloat());
 			cache.push(d);
-			pos += 19;
 			return d;
  		case "s".code:
  			var len = readDigits();
@@ -417,6 +431,18 @@ class Unserializer {
 			if( get(pos++) != "g".code )
 				throw "Invalid custom data";
 			return o;
+		case "A".code:
+			var name = unserialize();
+			var cl = resolver.resolveClass(name);
+			if( cl == null )
+				throw "Class not found " + name;
+			return cl;
+		case "B".code:
+			var name = unserialize();
+			var e = resolver.resolveEnum(name);
+			if( e == null )
+				throw "Enum not found " + name;
+			return e;
  		default:
  		}
  		pos--;

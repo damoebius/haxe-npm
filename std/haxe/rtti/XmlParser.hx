@@ -91,12 +91,12 @@ class XmlParser {
 			f1.set = RMethod;
 			return true;
 		}
-		return false;
+		return Type.enumEq(f1.get, f2.get) && Type.enumEq(f1.set, f2.set);
 	}
 
 	function mergeDoc( f1 : ClassField, f2 : ClassField ) {
 		if( f1.doc == null )
-			f2.doc = f2.doc;
+			f1.doc = f2.doc;
 		else if( f2.doc == null )
 			f2.doc = f1.doc;
 		return true;
@@ -333,7 +333,7 @@ class XmlParser {
 		}
 		return ml;
 	}
-	
+
 	function xoverloads( x : Fast ) : List<ClassField> {
 		var l = new List();
 		for ( m in x.elements ) {
@@ -393,7 +393,7 @@ class XmlParser {
 		};
 	}
 
-	function xclassfield( x : Fast, ?defPublic ) : ClassField {
+	function xclassfield( x : Fast, ?defPublic = false ) : ClassField {
 		var e = x.elements;
 		var t = xtype(e.next());
 		var doc = null;
@@ -415,10 +415,11 @@ class XmlParser {
 			doc : doc,
 			get : if( x.has.get ) mkRights(x.att.get) else RNormal,
 			set : if( x.has.set ) mkRights(x.att.set) else RNormal,
-			params : if( x.has.params ) mkTypeParams(x.att.params) else null,
+			params : if( x.has.params ) mkTypeParams(x.att.params) else [],
 			platforms : defplat(),
 			meta : meta,
-			overloads: overloads
+			overloads: overloads,
+			expr : if( x.has.expr ) x.att.expr else null
 		};
 	}
 

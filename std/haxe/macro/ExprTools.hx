@@ -211,7 +211,7 @@ class ExprTools {
 
 	/**
 		Returns the value `e` represents.
-		
+
 		Supported expressions are:
 			- `Int`, `Float` and `String` literals
 			- identifiers `true`, `false` and `null`
@@ -219,12 +219,12 @@ class ExprTools {
 			- array declarations if all their elements are values
 			- unary operators `-`, `!` and `~` if the operand is a value
 			- binary operators except `=>`, `...` and assignments
-			
+
 		Parentheses, metadata and the `untyped` keyword are ignored.
-		
+
 		If any non-value is encountered, an exception of type `String` is
 		thrown.
-		
+
 		If `e` is null, the result is unspecified.
 	**/
 	static public function getValue(e:Expr):Dynamic {
@@ -243,6 +243,13 @@ class ExprTools {
 				}
 				obj;
 			case EArrayDecl(el): el.map(getValue);
+			case EIf(econd, eif, eelse) | ETernary(econd, eif, eelse):
+				if (eelse == null) {
+					throw "If statements only have a value if the else clause is defined";
+				} else {
+					var econd:Dynamic = getValue(econd);
+					econd ? getValue(eif) : getValue(eelse);
+				}
 			case EUnop(op, false, e1):
 				var e1:Dynamic = getValue(e1);
 				switch (op) {
@@ -279,7 +286,7 @@ class ExprTools {
 			case _: throw 'Unsupported expression: $e';
 		}
 	}
-	
+
 	static inline function opt(e:Null<Expr>, f : Expr -> Expr):Expr
 		return e == null ? null : f(e);
 

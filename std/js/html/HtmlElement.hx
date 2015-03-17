@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2005-2014 Haxe Foundation
+ * Copyright (C)2005-2015 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -20,20 +20,42 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-// This file is generated, do not edit!
+// This file is generated from mozilla/HTMLElement.webidl line 15:0. Do not edit!
+
 package js.html;
 
-/** <p>The <code>html</code> object exposes the <a class=" external" title="http://www.w3.org/TR/html5/semantics.html#htmlhtmlelement" rel="external" href="http://www.w3.org/TR/html5/semantics.html#htmlhtmlelement" target="_blank">HTMLHtmlElement</a> (
-<span><a rel="custom" href="https://developer.mozilla.org/en/HTML">HTML 4</a></span> <a target="_blank" class="external" rel="external" href="http://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-33759296" title="http://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-33759296">HTMLHtmlElement</a>) interface and serves as the root node for a given HTML&nbsp;document.&nbsp; This object inherits the properties and methods described in the <a title="en/DOM/element" class="internal" rel="internal" href="/api/js/html/Element">element</a> section.&nbsp; In 
-<span><a rel="custom" href="https://developer.mozilla.org/en/HTML/HTML5">HTML5</a></span>, this interface inherits from HTMLElement, but provides no other members.</p>
-<p>You can retrieve the <code>html</code> object for a document by obtaining the value of the <a class="internal" title="en/DOM/document.documentElement" rel="internal" href="https://developer.mozilla.org/en/DOM/document.documentElement"><code>document.documentElement</code></a> property.</p><br><br>
-Documentation for this class was provided by <a href="https://developer.mozilla.org/En/DOM/Html">MDN</a>. */
-@:native("HTMLHtmlElement")
-extern class HtmlElement extends Element
+@:native("HTMLElement")
+extern class HTMLElement extends Element
 {
-	var manifest : String;
-
-	/** Version of the HTML&nbsp;Document Type Definition that governs this document. */
-	var version : String;
-
+	var title : String;
+	var lang : String;
+	var dir : String;
+	var dataset(default,null) : DOMStringMap;
+	var itemScope : Bool;
+	var itemType(default,null) : DOMSettableTokenList;
+	var itemId : String;
+	var itemRef(default,null) : DOMSettableTokenList;
+	var itemProp(default,null) : DOMSettableTokenList;
+	var properties(default,null) : HTMLPropertiesCollection;
+	var itemValue : Dynamic;
+	var hidden : Bool;
+	var tabIndex : Int;
+	var accessKey : String;
+	var accessKeyLabel(default,null) : String;
+	var draggable : Bool;
+	var contentEditable : String;
+	var isContentEditable(default,null) : Bool;
+	var contextMenu(default,null) : MenuElement;
+	var spellcheck : Bool;
+	var offsetParent(default,null) : Element;
+	var offsetTop(default,null) : Int;
+	var offsetLeft(default,null) : Int;
+	var offsetWidth(default,null) : Int;
+	var offsetHeight(default,null) : Int;
+	
+	function click() : Void;
+	/** @throws DOMError */
+	function focus() : Void;
+	/** @throws DOMError */
+	function blur() : Void;
 }
