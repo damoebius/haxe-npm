@@ -25,7 +25,7 @@
 package js.html;
 
 @:native("HTMLFrameElement")
-extern class FrameElement extends HTMLElement
+extern class FrameElement extends Element
 {
 	var name : String;
 	var scrolling : String;
@@ -33,7 +33,7 @@ extern class FrameElement extends HTMLElement
 	var frameBorder : String;
 	var longDesc : String;
 	var noResize : Bool;
-	var contentDocument(default,null) : Document;
+	var contentDocument(default,null) : HTMLDocument;
 	var contentWindow(default,null) : Window;
 	var marginHeight : String;
 	var marginWidth : String;

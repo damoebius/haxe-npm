@@ -29,18 +29,13 @@
 #if cpp
 using cpp.NativeString;
 #end
-#if cs
-@:keep
-#end
 class StringTools {
 	/**
 		Encode an URL by using the standard format.
 	**/
 	#if (!java && !cpp) inline #end public static function urlEncode( s : String ) : String {
-		#if flash9
+		#if flash
 			return untyped __global__["encodeURIComponent"](s);
-		#elseif flash
-			return untyped _global["escape"](s);
 		#elseif neko
 			return untyped new String(_urlEncode(s.__s));
 		#elseif js
@@ -52,9 +47,9 @@ class StringTools {
 				return untyped __java__("java.net.URLEncoder.encode(s, \"UTF-8\")")
 			catch (e:Dynamic) throw e;
 		#elseif cs
-			return untyped cs.system.Uri.EscapeUriString(s);
+			return untyped cs.system.Uri.EscapeDataString(s);
 		#elseif python
-			return python.lib.urllib.Parse.quote(s);
+			return python.lib.urllib.Parse.quote(s, "");
 		#else
 			return null;
 		#end
@@ -64,10 +59,8 @@ class StringTools {
 		Decode an URL using the standard format.
 	**/
 	#if (!java && !cpp) inline #end public static function urlDecode( s : String ) : String {
-		#if flash9
+		#if flash
 			return untyped __global__["decodeURIComponent"](s.split("+").join(" "));
-		#elseif flash
-			return untyped _global["unescape"](s);
 		#elseif neko
 			return untyped new String(_urlDecode(s.__s));
 		#elseif js
@@ -339,7 +332,7 @@ class StringTools {
 		its length equals `digits`.
 	**/
 	public static function hex( n : Int, ?digits : Int ) {
-		#if flash9
+		#if flash
 			var n : UInt = n;
 			var s : String = untyped n.toString(16);
 			s = s.toUpperCase();
@@ -385,10 +378,8 @@ class StringTools {
 		return untyped __dollar__sget(s.__s, index);
 		#elseif cpp
 		return untyped s.cca(index);
-		#elseif flash9
-		return untyped s.cca(index);
 		#elseif flash
-		return untyped s["cca"](index);
+		return untyped s.cca(index);
 		#elseif java
 		return ( index < s.length ) ? cast(_charAt(s, index), Int) : -1;
 		#elseif cs
@@ -406,10 +397,8 @@ class StringTools {
 		Tells if `c` represents the end-of-file (EOF) character.
 	*/
 	@:noUsing public static inline function isEof( c : Int ) : Bool {
-		#if (flash9 || cpp)
+		#if (flash || cpp)
 		return c == 0;
-		#elseif flash8
-		return c <= 0; // fast NaN
 		#elseif js
 		return c != c; // fast NaN
 		#elseif neko

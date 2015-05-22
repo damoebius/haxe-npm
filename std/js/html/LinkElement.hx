@@ -25,7 +25,7 @@
 package js.html;
 
 @:native("HTMLLinkElement")
-extern class LinkElement extends HTMLElement
+extern class LinkElement extends Element
 {
 	var disabled : Bool;
 	var href : String;
@@ -40,7 +40,7 @@ extern class LinkElement extends HTMLElement
 	var rev : String;
 	var target : String;
 	@:native("import")
-	var import_(default,null) : Document;
+	var import_(default,null) : HTMLDocument;
 	var sheet(default,null) : StyleSheet;
 	
 }

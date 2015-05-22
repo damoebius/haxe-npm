@@ -25,7 +25,7 @@
 package js.html;
 
 @:native("HTMLEmbedElement")
-extern class EmbedElement extends HTMLElement
+extern class EmbedElement extends Element
 {
 	var src : String;
 	var type : String;
@@ -34,5 +34,5 @@ extern class EmbedElement extends HTMLElement
 	var align : String;
 	var name : String;
 	
-	function getSVGDocument() : Document;
+	function getSVGDocument() : HTMLDocument;
 }

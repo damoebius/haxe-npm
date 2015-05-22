@@ -29,7 +29,7 @@ extern class Window extends EventTarget
 {
 	var window(default,null) : Window;
 	var self(default,null) : Window;
-	var document(default,null) : Document;
+	var document(default,null) : HTMLDocument;
 	var name : String;
 	var location(default,null) : Location;
 	var history(default,null) : History;
@@ -138,13 +138,15 @@ extern class Window extends EventTarget
 	var onpointerleave : haxe.Constraints.Function;
 	var ongotpointercapture : haxe.Constraints.Function;
 	var onlostpointercapture : haxe.Constraints.Function;
-	var onfullscreenchange : haxe.Constraints.Function;
-	var onfullscreenerror : haxe.Constraints.Function;
 	var onpointerlockchange : haxe.Constraints.Function;
 	var onpointerlockerror : haxe.Constraints.Function;
 	var indexedDB(default,null) : js.html.idb.Factory;
 	var onerror : haxe.extern.EitherType<Event,String> -> String -> Int -> Int -> Dynamic -> Bool;
 	var speechSynthesis(default,null) : SpeechSynthesis;
+	var ontouchstart : haxe.Constraints.Function;
+	var ontouchend : haxe.Constraints.Function;
+	var ontouchmove : haxe.Constraints.Function;
+	var ontouchcancel : haxe.Constraints.Function;
 	var onafterprint : haxe.Constraints.Function;
 	var onbeforeprint : haxe.Constraints.Function;
 	var onbeforeunload : Event -> String;
@@ -224,13 +226,13 @@ extern class Window extends EventTarget
 	/** @throws DOMError */
 	function atob( atob : String ) : String;
 	/** @throws DOMError */
-	@:overload( function( handler : haxe.Constraints.Function, ?timeout : Int = 0, ?arguments : Dynamic ) : Int {} )
-	function setTimeout( handler : String, ?timeout : Int = 0, ?unused : Dynamic ) : Int;
+	@:overload( function( handler : haxe.Constraints.Function, ?timeout : Int = 0, arguments : haxe.extern.Rest<Dynamic> ) : Int {} )
+	function setTimeout( handler : String, ?timeout : Int = 0, unused : haxe.extern.Rest<Dynamic> ) : Int;
 	/** @throws DOMError */
 	function clearTimeout( ?handle : Int = 0 ) : Void;
 	/** @throws DOMError */
-	@:overload( function( handler : haxe.Constraints.Function, ?timeout : Int, ?arguments : Dynamic ) : Int {} )
-	function setInterval( handler : String, ?timeout : Int, ?unused : Dynamic ) : Int;
+	@:overload( function( handler : haxe.Constraints.Function, ?timeout : Int, arguments : haxe.extern.Rest<Dynamic> ) : Int {} )
+	function setInterval( handler : String, ?timeout : Int, unused : haxe.extern.Rest<Dynamic> ) : Int;
 	/** @throws DOMError */
 	function clearInterval( ?handle : Int = 0 ) : Void;
 }

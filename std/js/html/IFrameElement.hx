@@ -25,7 +25,7 @@
 package js.html;
 
 @:native("HTMLIFrameElement")
-extern class IFrameElement extends HTMLElement
+extern class IFrameElement extends Element
 {
 	var src : String;
 	var srcdoc : String;
@@ -34,7 +34,7 @@ extern class IFrameElement extends HTMLElement
 	var allowFullscreen : Bool;
 	var width : String;
 	var height : String;
-	var contentDocument(default,null) : Document;
+	var contentDocument(default,null) : HTMLDocument;
 	var contentWindow(default,null) : Window;
 	var align : String;
 	var scrolling : String;
@@ -43,5 +43,5 @@ extern class IFrameElement extends HTMLElement
 	var marginHeight : String;
 	var marginWidth : String;
 	
-	function getSVGDocument() : Document;
+	function getSVGDocument() : HTMLDocument;
 }

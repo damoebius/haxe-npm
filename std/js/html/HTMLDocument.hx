@@ -29,7 +29,7 @@ extern class HTMLDocument extends Document
 {
 	var domain : String;
 	var cookie : String;
-	var body : HTMLElement;
+	var body : Element;
 	var head(default,null) : HeadElement;
 	var images(default,null) : HTMLCollection;
 	var embeds(default,null) : HTMLCollection;
@@ -50,14 +50,14 @@ extern class HTMLDocument extends Document
 	function getElementsByName( elementName : String ) : NodeList;
 	function getItems( ?typeNames : String = "" ) : NodeList;
 	/** @throws DOMError */
-	@:overload( function( ?type : String = "text/html", ?replace : String = "" ) : Document {} )
+	@:overload( function( ?type : String = "text/html", ?replace : String = "" ) : HTMLDocument {} )
 	function open( url : String, name : String, features : String, ?replace : Bool = false ) : Window;
 	/** @throws DOMError */
 	function close() : Void;
 	/** @throws DOMError */
-	function write( ?text : String ) : Void;
+	function write( text : haxe.extern.Rest<String> ) : Void;
 	/** @throws DOMError */
-	function writeln( ?text : String ) : Void;
+	function writeln( text : haxe.extern.Rest<String> ) : Void;
 	/** @throws DOMError */
 	function execCommand( commandId : String, ?showUI : Bool = false, ?value : String = "" ) : Bool;
 	/** @throws DOMError */
@@ -193,7 +193,7 @@ extern class HTMLDocument extends Document
 	/** Shorthand for creating an HTML <br> element. */
 	inline function createBRElement() : BRElement { return cast createElement("br"); }
 	/** Shorthand for creating an HTML <html> element. */
-	inline function createHtmlElement() : HTMLHtmlElement { return cast createElement("html"); }
+	inline function createHtmlElement() : HtmlElement { return cast createElement("html"); }
 	/** Shorthand for creating an HTML <textarea> element. */
 	inline function createTextAreaElement() : TextAreaElement { return cast createElement("textarea"); }
 	/** Shorthand for creating an HTML <media> element. */

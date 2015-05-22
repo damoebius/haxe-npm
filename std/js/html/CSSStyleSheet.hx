@@ -27,7 +27,7 @@ package js.html;
 @:native("CSSStyleSheet")
 extern class CSSStyleSheet extends StyleSheet
 {
-	var ownerRule(default,null) : Dynamic/*MISSING CSSRule*/;
+	var ownerRule(default,null) : CSSRule;
 	var cssRules(default,null) : CSSRuleList;
 	
 	/** @throws DOMError */

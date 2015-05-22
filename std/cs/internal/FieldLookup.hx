@@ -23,6 +23,7 @@ package cs.internal;
 
 @:native('haxe.lang.FieldLookup')
 @:final @:nativeGen
+@:classCode("#pragma warning disable 628\n")
 @:keep @:static class FieldLookup
 {
 	@:protected private static var fieldIds:cs.NativeArray<Int>;
@@ -131,7 +132,7 @@ package cs.internal;
 				return fields[mid];
 			}
 		}
-		//if not found, it's definately an error
+		//if not found, it's definitely an error
 		throw "Field not found for hash " + key;
 	}
 
