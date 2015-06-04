@@ -16,9 +16,6 @@
 [submodule "lib/extjs"]
 	path = lib/extjs
 	url = https://github.com/jasononeil/Ext-JS-4.0-externs-for-Haxe.git
-[submodule "lib/pixijs"]
-	path = lib/pixijs
-	url = https://github.com/pixijs/pixi-haxe.git
 [submodule "lib/nodejs"]
 	path = lib/nodejs
 	url = https://github.com/haxorplatform/nodehx.git
