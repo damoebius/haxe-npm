@@ -22,7 +22,7 @@ ncp('lib/extjs/haxe',libDir+'/extjs');
 ncp('lib/nodejs/lib/src',libDir+'/nodejs');
 ncp('lib/phantomjs/src',libDir+'/phantomjs');
 ncp('lib/phaser/src',libDir+'/phaser');
-ncp('lib/pixijs/src',libDir+'/pixijs');
+ncp('lib/pixijs',libDir+'/pixijs');
 ncp('lib/threejs',libDir+'/threejs');
 
 
