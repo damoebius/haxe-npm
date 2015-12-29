@@ -1,79 +1,66 @@
 var os = require('os');
+var http = require('http');
+var Download = require('download');
+var downloadStatus = require('download-status');
 var exec = require('child_process').exec
+var fsx = require('fs-extra');
 var fs = require('fs');
-var zlib = require('zlib');
 
 var platform = os.platform();
-console.log("Installing Binaries for  " + os.platform() );
-var inputFile='';
-var outputFile='';
+var haxeVersion = process.env.npm_package_version;
+
+console.log("Installing Haxe "+haxeVersion+" for " + os.platform() );
+var remoteFile ='';
+var binFile='';
+var outBinFile='';
 var alias_cmd='';
 var stdPath=__dirname+'/../std';
 
 switch(platform) {
     case 'linux':
-        inputFile = 'haxe-linux64.gz';
-        outputFile = 'haxe.bin';
-        unzip(inputFile, function ( error, result ) {
-            if ( error != null ) {
-                console.error(error);
-            } else {
-                fs.writeFileSync('./bin/' + outputFile, result);
-                exec('chmod 755 ' + __dirname + '/' + outputFile, function ( error, stdout, stderr ) {
-                    if ( error !== null ) {
-                        console.error(error);
-                    }
-                });
-            }
-        });
+        remoteFile = 'http://haxe.org/website-content/downloads/'+haxeVersion+'/downloads/haxe-'+haxeVersion+'-linux64.tar.gz';
+        binFile = "haxe";
+        outBinFile = "haxe.bin";
         break;
     case 'darwin':
-        inputFile = 'haxe-osx.gz';
-        outputFile = 'haxe.bin';
-        unzip(inputFile, function ( error, result ) {
-            if ( error != null ) {
-                console.error(error);
-            } else {
-                fs.writeFileSync('./bin/' + outputFile, result);
-                exec('chmod 755 ' + __dirname + '/' + outputFile, function ( error, stdout, stderr ) {
-                    if ( error !== null ) {
-                        console.error(error);
-                    }
-                });
-            }
-        });
-
+        remoteFile = 'http://haxe.org/website-content/downloads/'+haxeVersion+'/downloads/haxe-'+haxeVersion+'-osx.tar.gz';
+        binFile = "haxe";
+        outBinFile = "haxe.bin";
         break;
     case 'win32':
     case 'win64':
-        inputFile = 'haxe-win.gz';
-        outputFile = 'haxe.exe';
+        remoteFile = 'http://haxe.org/website-content/downloads/'+haxeVersion+'/downloads/haxe-'+haxeVersion+'-win.zip';
         alias_cmd = 'setx HAXE_STD_PATH "' + stdPath + '"';
-        unzip(inputFile, function ( error, result ) {
-            if ( error != null ) {
-                console.error(error);
-            } else {
-                fs.writeFileSync('./bin/' + outputFile, result);
-            }
-        });
-        exec(alias_cmd, function ( error, stdout, stderr ) {
-            if ( error !== null ) {
-                console.error(error);
-            }
-
-
-        });
+        binFile = "haxe.exe";
+        outBinFile = "haxe.exe";
         break;
     default:
         console.error("ERROR : Unknown plateform");
 }
-function unzip(inputFile, callback){
-    var input = fs.readFileSync("./bin/"+inputFile);
-    zlib.gunzip(input,callback);
-}
-console.log("Deleting archives" );
-fs.unlinkSync("./bin/haxe-win.gz");
-fs.unlinkSync("./bin/haxe-osx.gz");
-fs.unlinkSync("./bin/haxe-linux64.gz");
-fs.unlinkSync("./bin/haxe-linux32.gz");
-console.log("Installation Complete" );
+
+function onExtracted( err, files ) {
+    if( err ) {
+        console.error("Unable to download or extract Haxe.");
+        throw err;
+    } else {
+        console.log("Extracting files from archive..." );
+        fsx.copySync( __dirname + '/haxe-' + haxeVersion +'/std'  , stdPath);
+        fsx.copySync( __dirname + '/haxe-' + haxeVersion +'/'+binFile  , __dirname+'/'+outBinFile);
+        fs.chmodSync(__dirname+'/'+outBinFile, '755');
+        fsx.removeSync( __dirname + '/haxe-' + haxeVersion);
+        exec(alias_cmd, function ( error, stdout, stderr ) {
+            if ( error !== null ) {
+                console.error(error);
+            }
+        });
+
+        console.log("Installation Complete" );
+    }
+
+
+};
+var d = new Download({ extract: true })
+    .get( remoteFile )
+    .dest( __dirname )
+    .use(downloadStatus())
+    .run( onExtracted );
