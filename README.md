@@ -103,20 +103,8 @@ You can use 'create' parameters to create an empty project based on the default 
 haxe create MyProject
 ```
 
-## -lib and -use
--lib will use a library declared in your dependencies
--use will use embeded externs among :
-
-| Embeded JS Externs   | 
-| ------------- | 
-| bean  | 
-| createjs  |
-| extjs  |
-| phantomjs  |
-| phaser  |
-| pixijs  |
-| threejs  |
-| nodejs  |
+## -lib 
+-lib will use a library declared in your npm dependencies
 
 
 For documentation, usage, and examples, see: http://haxe.org/
