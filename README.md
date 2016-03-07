@@ -1,8 +1,16 @@
 ![Haxe logo](http://haxe.org/img/haxe-logo.svg)
 # [Haxe - The Cross-Platform Toolkit](http://haxe.org)
 
-haxe-npm
+haxe
 ========
+
+Installs [Haxe](http://haxe.org) using [NPM](https://www.npmjs.com/)
+
+## Features
+
+* Global or per-project, sandboxed, standard Haxe installation
+* No dependency to Neko/libneko
+* Available on Ubuntu/Linux/Windows/OSX
 
 ## Installation
 
@@ -70,13 +78,18 @@ Create a simple file package.json at the root of your project and add dependenci
     "url": "git://github.com/damoebius/BikeWar.git"
   },
   "dependencies": {
-     "haxe" : ">=0.1.7",
+     "haxe" : "3.2.1",
      "taminahx" : ">=0.1.0",
      "mconsole-npm" : ">=1.6.1",
      "msignal" : ">=1.2.3"
   }
 }
 ```
+
+### Version
+
+See [Haxe Download list](http://haxe.org/download/list/).
+Please notice the directory name in the archive must match.
 
 run the npm command line to configure your project
 ```shell
@@ -97,15 +110,16 @@ Target exemple :
     </exec>
 </target>
 ```
-## create template project
-You can use 'create' parameters to create an empty project based on the default template.
-```shell
-haxe create MyProject
-```
+
 
 ## -lib 
 -lib will use a library declared in your npm dependencies
 
 
 For documentation, usage, and examples, see: http://haxe.org/
+
+haxelib
+========
+Haxelib support is coming soon
+
 
