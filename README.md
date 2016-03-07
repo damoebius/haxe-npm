@@ -1,7 +1,7 @@
 ![Haxe logo](http://haxe.org/img/haxe-logo.svg)
 # [Haxe - The Cross-Platform Toolkit](http://haxe.org)
 
-haxe-npm
+haxe
 ========
 
 ## Installation
@@ -103,8 +103,12 @@ You can use 'create' parameters to create an empty project based on the default 
 haxe create MyProject
 ```
 
-## -lib and -use
+## -lib
 -lib will use a library declared in your npm dependencies
 
 For documentation, usage, and examples, see: http://haxe.org/
+
+haxelib
+========
+haxelib support is in progress
 
