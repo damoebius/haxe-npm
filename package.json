@@ -15,7 +15,8 @@
   },
   "main": "",
   "bin": {
-    "haxe": "./bin/haxe-cli.js"
+    "haxe": "./bin/haxe-cli.js",
+    "haxelib": "./bin/haxelib-cli.js"
   },
   "preferGlobal": true,
   "scripts": {
